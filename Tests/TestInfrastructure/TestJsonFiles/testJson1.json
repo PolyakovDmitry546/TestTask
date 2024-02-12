@@ -1,0 +1,16 @@
+[
+    {
+        "device": {
+            "serialNumber": "913580515e13",
+            "isOnline": false
+        },
+        "brigade": { "code": "2027154745" }
+    },
+    {
+        "device": {
+            "serialNumber": "624535123e13",
+            "isOnline": true
+        },
+        "brigade": { "code": "2027154745" }
+    }
+]

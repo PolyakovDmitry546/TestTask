@@ -10,10 +10,12 @@ namespace Infrastructure
         public JsonDeviceInfoRepository(string path)
         {
             var jsonString = File.ReadAllText(path);
-            devices = JsonSerializer.Deserialize<List<DeviceInfo>>(
+            var desierializedDevices = JsonSerializer.Deserialize<List<DeviceInfo>>(
                 jsonString,
                 new JsonSerializerOptions() { PropertyNameCaseInsensitive = true}
             );
+            if ( desierializedDevices == null ) devices = new List<DeviceInfo>();
+            else devices = desierializedDevices;
         }
         public List<DeviceInfo> GetAll()
         {
