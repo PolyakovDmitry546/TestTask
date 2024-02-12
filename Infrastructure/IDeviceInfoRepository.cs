@@ -4,6 +4,6 @@ namespace Infrastructure
 {
     public interface IDeviceInfoRepository
     {
-        public IEnumerable<DeviceInfo> GetAll();
+        public List<DeviceInfo> GetAll();
     }
 }

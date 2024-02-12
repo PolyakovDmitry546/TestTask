@@ -9,7 +9,7 @@ namespace Infrastructure
         {
             if (fakeData != null) { db = fakeData; }
         }
-        public IEnumerable<DeviceInfo> GetAll()
+        public List<DeviceInfo> GetAll()
         {
             return db;
         }

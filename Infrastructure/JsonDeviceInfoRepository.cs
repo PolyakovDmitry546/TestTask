@@ -1,12 +1,23 @@
-﻿using Infrastructure.DTOs;
+﻿using System.Text.Json;
+
+using Infrastructure.DTOs;
 
 namespace Infrastructure
 {
     public class JsonDeviceInfoRepository : IDeviceInfoRepository
     {
-        public IEnumerable<DeviceInfo> GetAll()
+        List<DeviceInfo> devices;
+        public JsonDeviceInfoRepository(string path)
         {
-            throw new NotImplementedException();
+            var jsonString = File.ReadAllText(path);
+            devices = JsonSerializer.Deserialize<List<DeviceInfo>>(
+                jsonString,
+                new JsonSerializerOptions() { PropertyNameCaseInsensitive = true}
+            );
+        }
+        public List<DeviceInfo> GetAll()
+        {
+            return devices;
         }
     }
 }
