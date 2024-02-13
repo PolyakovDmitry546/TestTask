@@ -26,7 +26,8 @@ namespace Infrastructure
                 conflicts,
                 options: new JsonSerializerOptions() {PropertyNamingPolicy = JsonNamingPolicy.CamelCase }
             );
-            var directoryName = Path.GetDirectoryName(path) ?? Directory.GetCurrentDirectory();
+            var directoryName = Path.GetDirectoryName(path);
+            if (directoryName == null || directoryName == string.Empty) directoryName = Directory.GetCurrentDirectory();
             Directory.CreateDirectory(directoryName);
             using StreamWriter sw = File.CreateText(path);
             sw.Write(jsonString);
