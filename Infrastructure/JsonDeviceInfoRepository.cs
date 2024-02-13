@@ -11,6 +11,10 @@ namespace Infrastructure
         public JsonDeviceInfoRepository(string path)
         {
             this.path = path;
+            if (!File.Exists(path)) 
+            {
+                throw new FileNotFoundException($"File {path} not found.");
+            }
         }
 
         public List<DeviceInfo> GetAll()
