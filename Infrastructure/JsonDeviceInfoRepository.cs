@@ -1,24 +1,31 @@
-﻿using System.Text.Json;
+﻿using Newtonsoft.Json;
 
 using Infrastructure.DTOs;
+
 
 namespace Infrastructure
 {
     public class JsonDeviceInfoRepository : IDeviceInfoRepository
     {
-        List<DeviceInfo> devices;
+        private readonly string path;
         public JsonDeviceInfoRepository(string path)
         {
-            var jsonString = File.ReadAllText(path);
-            var desierializedDevices = JsonSerializer.Deserialize<List<DeviceInfo>>(
-                jsonString,
-                new JsonSerializerOptions() { PropertyNameCaseInsensitive = true}
-            );
-            if ( desierializedDevices == null ) devices = new List<DeviceInfo>();
-            else devices = desierializedDevices;
+            this.path = path;
         }
+
         public List<DeviceInfo> GetAll()
         {
+            var jsonString = File.ReadAllText(path);
+            List<DeviceInfo> devices = new();
+            try
+            {
+                var desierializedDevices = JsonConvert.DeserializeObject<List<DeviceInfo>>(jsonString);
+                if (desierializedDevices != null) devices = desierializedDevices;
+            }
+            catch (Exception e)
+            {
+                throw new JsonException(message: e.Message);
+            }
             return devices;
         }
     }
