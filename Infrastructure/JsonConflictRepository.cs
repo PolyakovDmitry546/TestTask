@@ -21,12 +21,15 @@ namespace Infrastructure
         }
 
         public void Save()
-        {
+        {   
             var jsonString = JsonSerializer.Serialize(
                 conflicts,
                 options: new JsonSerializerOptions() {PropertyNamingPolicy = JsonNamingPolicy.CamelCase }
             );
-            File.WriteAllText(path, jsonString);
+            var directoryName = Path.GetDirectoryName(path) ?? Directory.GetCurrentDirectory();
+            Directory.CreateDirectory(directoryName);
+            using StreamWriter sw = File.CreateText(path);
+            sw.Write(jsonString);
         }
     }
 }
